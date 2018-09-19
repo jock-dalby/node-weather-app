@@ -1,9 +1,31 @@
 const request = require('request');
-const configVar = require('./config')
+const yargs = require('yargs');
+const configVar = require('./config');
+
+const argv = yargs
+  .options({
+    a: {
+      demand: true,
+      alias: 'address',
+      describe: 'Address for which to fetch weather information',
+      // tells yargs to parse address argument to a string
+      string: true
+    }
+  })
+  // Adds help argument to argv
+  .help()
+  .alias('help', 'h')
+  .argv;
+
+// convert address argument into a query string
+const encodedQueryString = encodeURIComponent(argv.address);
+console.log('Encoded Query String', encodedQueryString);
+console.log('Decoded Query String', decodeURIComponent(encodedQueryString));
+
 // arg 1 is options, arg2 is callback for when data is returned
 // https://www.npmjs.com/package/request
 request({
-  url: `http://www.mapquestapi.com/geocoding/v1/address?key=${configVar.MAP_QUEST_API_KEY}&location=1301%20lombard%20street%20philadelphia`,
+  url: `http://www.mapquestapi.com/geocoding/v1/address?key=${configVar.MAP_QUEST_API_KEY}&location=${encodedQueryString}`,
   json: true
 }, (error, response, body) => {
   const results = body.results;
@@ -16,5 +38,5 @@ request({
   // console.log(JSON.stringify(body, undefined, 2));
   console.log('Provided location: ', providedLocation);
   console.log('Location longitude: ', locationLongitude);
-  console.log(':ocation latitude: ', locationLatitude);
+  console.log('Location latitude: ', locationLatitude);
 });
