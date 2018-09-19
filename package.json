@@ -1,0 +1,22 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Non-blocking => code continues to run while waiting for other things to happen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jock-dalby/node-weather-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jock-dalby/node-weather-app/issues"
+  },
+  "homepage": "https://github.com/jock-dalby/node-weather-app#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
