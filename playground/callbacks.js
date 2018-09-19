@@ -3,7 +3,10 @@ const getUser = (id, callback) => {
     id,
     name: 'Jock'
   }
-  callback(user);
+
+  setTimeout(() => {
+    callback(user);
+  }, 500);
 };
 
 getUser(5, user => console.log('User: ', user));
