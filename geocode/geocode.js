@@ -1,7 +1,7 @@
 const request = require('request');
 const configVar = require('../config');
 
-function geocodeAddress(address) {
+const geocodeAddress = (address) => {
 
   const encodedAddress = encodeAddress(address);
   // arg 1 is options, arg2 is callback for when data is returned
@@ -29,7 +29,7 @@ function geocodeAddress(address) {
   });
 }
 
-function encodeAddress(address) {
+const encodeAddress = (address) => {
   // convert address argument into a query string
   const encodedQueryString = encodeURIComponent(address);
   console.log('Encoded Query String', encodedQueryString);
@@ -37,11 +37,11 @@ function encodeAddress(address) {
   return encodedQueryString;
 }
 
-function handleError(error) {
+const handleError = (error) => {
   console.log('ERROR: Unable to connect to servers');
 }
 
-function handleSuccess(results) {
+const handleSuccess = (results) => {
   const providedLocation = results[0].providedLocation;
   const latLngInfo = results[0].locations[0].latLng;
   const locationLongitude = latLngInfo.lng;
