@@ -16,4 +16,17 @@ const argv = yargs
   .alias('help', 'h')
   .argv;
 
-geocode.geocodeAddress(argv.address)
+geocode.geocodeAddress(
+  argv.address,
+  (errorMessage, results) => errorMessage ? handleError(errorMessage) : handleSuccess(results)
+)
+
+const handleError = (errorMessage) => {
+  console.log('ERROR: ', errorMessage);
+}
+
+const handleSuccess = (results) => {
+  // Second argument not needed
+  // 3rd argument states 2 spaces per indentation
+  console.log('SUCCESS: ', JSON.stringify(results, undefined, 2));
+}
