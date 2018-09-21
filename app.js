@@ -29,14 +29,29 @@ request({
   json: true
 }, (error, response, body) => {
   const results = body.results;
+  const streetAddressFound = results[0].locations[0].street;
+  // Second argument not needed
+  // 3rd argument states 2 spaces per indentation
+  // console.log(JSON.stringify(streetAddressFound, undefined, 2));
+  if(error) {
+    console.log('Unable to connect to servers');
+    return;
+  }
+
+  if(streetAddressFound) {
+    handleSuccess(results);
+    console.log('Address found', streetAddressFound)
+  } else {
+    console.log('Address not found')
+  }
+});
+
+function handleSuccess(results) {
   const providedLocation = results[0].providedLocation;
   const latLngInfo = results[0].locations[0].latLng;
   const locationLongitude = latLngInfo.lng;
   const locationLatitude = latLngInfo.lat;
-  // Second argument not needed
-  // 3rd argument states 2 spaces per indentation
-  // console.log(JSON.stringify(body, undefined, 2));
   console.log('Provided location: ', providedLocation);
   console.log('Location longitude: ', locationLongitude);
   console.log('Location latitude: ', locationLatitude);
-});
+}
