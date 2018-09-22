@@ -17,23 +17,29 @@ const argv = yargs
   .alias('help', 'h')
   .argv;
 
+// Take address args and get longitude and latitiude coords
 geocode.geocodeAddress(
   argv.address,
-  (errorMessage, results) => errorMessage ? handleError(errorMessage) : handleSuccess(results)
+  (errorMessage, results) => errorMessage ? handleError(errorMessage) : getWeather(results)
 )
 
-weather.getWeather(
-  null,
-  null,
-  (errorMessage, results) => errorMessage ? handleError(errorMessage) : handleSuccess(results)
-)
+// When have coords, use coords to get weather
+const getWeather = (geocodedAddress) => {
+  weather.getWeather(
+    geocodedAddress.latitude,
+    geocodedAddress.longitude,
+    (errorMessage, results) => errorMessage ? handleError(errorMessage) : handleGetWeatherSuccess(results)
+  )
+}
+
 
 const handleError = (errorMessage) => {
   console.log('ERROR: ', errorMessage);
 }
 
-const handleSuccess = (results) => {
+const handleGetWeatherSuccess = (weatherResults) => {
   // Second argument not needed
   // 3rd argument states 2 spaces per indentation
-  console.log('SUCCESS: ', JSON.stringify(results, undefined, 2));
+  // console.log('SUCCESS: ', JSON.stringify(results, undefined, 2));
+  console.log(`It's currently ${weatherResults.temperature} degrees. It feels more like ${weatherResults.apparentTemperature} degrees!`);
 }
