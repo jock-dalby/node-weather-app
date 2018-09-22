@@ -12,7 +12,7 @@ const geocodeAddress = (address, callback) => {
   }, (error, response, body) => {
 
     if (error) {
-      callback('Unable to connect to server', null)
+      callback('Unable to connect to map quest server', null)
       return;
     }
 

@@ -13,7 +13,7 @@ const getWeather = (lat, lng, callback) => {
         apparentTemperature: body.currently.apparentTemperature
       });
     } else {
-      callback('error');
+      callback('Unable to connect to DarkSky server');
     }
   });
 }
