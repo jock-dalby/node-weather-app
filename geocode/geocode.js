@@ -41,5 +41,6 @@ const encodeAddress = (address) => {
 }
 
 module.exports = {
-  geocodeAddress
+  geocodeAddress,
+  encodeAddress
 }
