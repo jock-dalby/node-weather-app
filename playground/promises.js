@@ -33,7 +33,11 @@ const asyncAdd = (a, b) => {
 
 const isTypeNumber = val => typeof val === 'number';
 
+const errorHandler = errorMessage => console.log('Error ', errorMessage);
+
 asyncAdd(5, 12).then(
-  total => console.log('5 + 12 = ', total),
-  errorMessage => console.log('Error ', errorMessage),
-);
+  total => asyncAdd(total, 33).then(
+    newTotal => console.log('Total: ', newTotal)
+  )
+  // .catch will catch any errors if any of the chained promises fail
+).catch(errorHandler);
