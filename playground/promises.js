@@ -17,3 +17,23 @@ somePromise.then(
   // else the second arg will be executed
   errorMessage => console.log('Failed: ', errorMessage),
 );
+
+// Primses with args
+const asyncAdd = (a, b) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (isTypeNumber(a) && isTypeNumber(b)) {
+        resolve(a+b);
+      } else {
+        reject('Arguments must be numbers');
+      }
+    }, 1000);
+  })
+}
+
+const isTypeNumber = val => typeof val === 'number';
+
+asyncAdd(5, 12).then(
+  total => console.log('5 + 12 = ', total),
+  errorMessage => console.log('Error ', errorMessage),
+);
