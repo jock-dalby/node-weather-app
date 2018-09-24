@@ -30,12 +30,12 @@ axios.get(geocodeUrl).then(
     const latitude = response.data.results[0].locations[0].latLng.lat;
     const weatherUrl = `https://api.darksky.net/forecast/${configVar.DARK_SKY_API_KEY}/${latitude},${longitude}`
 
-    return axios.get(weatherUrl).then(response => {
-      const temperature = response.data.currently.temperature;
-      const apparentTemperature = response.data.currently.apparentTemperature;
-      console.log(`It's currently ${temperature} degrees. It feels more like ${apparentTemperature} degrees!`);
-    })
+    return axios.get(weatherUrl)
   }
-).catch(
+).then(response => {
+  const temperature = response.data.currently.temperature;
+  const apparentTemperature = response.data.currently.apparentTemperature;
+  console.log(`It's currently ${temperature} degrees. It feels more like ${apparentTemperature} degrees!`);
+}).catch(
   err => console.error('ERROR: ', err.code === 'ENOTFOUND' ? 'Unable to connect to API servers' : err.message)
 );
